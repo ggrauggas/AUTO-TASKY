@@ -194,15 +194,21 @@ const TYPE_SHORT = {
 const typeShort = t => TYPE_SHORT[t] || t
 const fmtDate   = d => d ? new Date(d).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'}) : '—'
 
-async function load() {
-  loading.value = true
+async function load({ silent = false } = {}) {
+  if (!silent) loading.value = true
   try {
     const p = { page: page.value, limit }
     if (filters.status) p.status = filters.status
     if (filters.type)   p.type   = filters.type
     const { data } = await tasksApi.list(p)
-    tasks.value = data.data; total.value = data.total
-  } finally { loading.value = false }
+    if (silent) {
+      if (JSON.stringify(data.data) !== JSON.stringify(tasks.value)) tasks.value = data.data
+      if (data.total !== total.value) total.value = data.total
+    } else {
+      tasks.value = data.data
+      total.value = data.total
+    }
+  } finally { if (!silent) loading.value = false }
 }
 
 function resetFilters() { filters.status=''; filters.type=''; page.value=1; load() }
@@ -240,7 +246,7 @@ async function doDelete() {
 
 watch([()=>filters.status,()=>filters.type], ()=>{ page.value=1; load() })
 let interval
-onMounted(()=>{ load(); interval=setInterval(load,5000) })
+onMounted(()=>{ load(); interval=setInterval(()=>load({ silent:true }),5000) })
 onUnmounted(()=>clearInterval(interval))
 </script>
 
