@@ -7,7 +7,6 @@
 
     <aside :class="['sidebar', sidebarOpen ? 'sidebar-open' : '', sidebarCollapsed ? 'sidebar-mini' : '']">
       <div class="sidebar-logo">
-        <img :src="logoUrl" class="sidebar-logo-img" alt="AUTO-TASKY" />
         <button class="sidebar-toggle-btn" @click="toggleSidebar"
           :title="sidebarCollapsed ? 'Expandir menú' : 'Colapsar menú'">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
@@ -65,7 +64,6 @@
             <rect y="16" width="20" height="2.5" rx="1"/>
           </svg>
         </button>
-        <img :src="logoUrl" class="mobile-header-logo" alt="AUTO-TASKY" />
       </div>
       <router-view />
     </div>
@@ -79,7 +77,6 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import ToastContainer from '@/components/ToastContainer.vue'
 import NavIcon from '@/components/NavIcon.vue'
-import logoUrl from '@/assets/LOGO.png'
 
 const auth   = useAuthStore()
 const router = useRouter()

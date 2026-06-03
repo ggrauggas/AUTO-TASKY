@@ -4,7 +4,7 @@
     <div class="page">
       <div class="flex-between mb-4">
         <select v-model="filterStatus" style="width:200px">
-          <option value="">Activas (sin asignar + mías)</option>
+          <option value="">Activas</option>
           <option value="sin_asignar">Sin asignar</option>
           <option value="asignada">Asignada</option>
           <option value="en_proceso">En proceso</option>
