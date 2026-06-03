@@ -3,7 +3,7 @@
     <div class="login-split">
       <!-- Panel izquierdo - marca -->
       <div class="login-brand">
-        <img :src="logoUrl" class="login-brand-logo-img" alt="AUTO-TASKY" />
+        <div class="login-brand-logo">AT</div>
         <h1 class="login-brand-title">AUTO-TASKY</h1>
         <p class="login-brand-sub">Sistema de gestión de tareas industriales</p>
         <div class="login-brand-features">
@@ -40,10 +40,6 @@
             <span v-if="loading" class="spinner"></span>
             <span v-else>Acceder al sistema</span>
           </button>
-
-          <div class="login-hint">
-            Credenciales de prueba: admin / 0000
-          </div>
         </div>
       </div>
     </div>
@@ -54,7 +50,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import logoUrl from '@/assets/LOGO.png'
 
 const auth     = useAuthStore()
 const router   = useRouter()
@@ -98,12 +93,12 @@ async function doLogin() {
   padding: 60px 48px;
   display: flex; flex-direction: column; justify-content: center;
 }
-.login-brand-logo-img {
-  height: 54px;
-  max-width: 180px;
-  object-fit: contain;
+.login-brand-logo {
+  width: 56px; height: 56px;
+  background: var(--t700); color: #fff;
+  font-size: 1.4rem; font-weight: 900; letter-spacing: 1px;
+  display: flex; align-items: center; justify-content: center;
   margin-bottom: 24px;
-  filter: brightness(0) invert(1);
 }
 .login-brand-title {
   font-size: 1.8rem; font-weight: 800; color: #fff;
@@ -152,13 +147,13 @@ async function doLogin() {
   .login-split { flex-direction: column; }
   .login-brand {
     width: 100%;
-    padding: 24px 20px;
+    padding: 28px 24px 24px;
     flex-direction: row;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     justify-content: flex-start;
   }
-  .login-brand-logo-img { height: 34px; margin-bottom: 0; flex-shrink: 0; }
+  .login-brand-logo { margin-bottom: 0; width: 42px; height: 42px; font-size: 1.1rem; flex-shrink: 0; }
   .login-brand-title { font-size: 1.2rem; margin-bottom: 0; }
   .login-brand-sub { display: none; }
   .login-brand-features { display: none; }
