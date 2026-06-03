@@ -52,7 +52,7 @@
       </div>
 
       <!-- Layout principal -->
-      <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+      <div class="dashboard-grid">
 
         <!-- Feed actividad -->
         <div>
@@ -106,7 +106,7 @@
           </div>
 
           <!-- KPI maquinaria -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+          <div class="dashboard-machines-kpi">
             <div class="stat-card" style="padding:14px 16px">
               <div class="stat-card-label">Procesando</div>
               <div class="stat-card-value" style="font-size:1.8rem">{{ machineStats.processing }}</div>

@@ -3,7 +3,7 @@
     <div class="login-split">
       <!-- Panel izquierdo - marca -->
       <div class="login-brand">
-        <div class="login-brand-logo">AT</div>
+        <img :src="logoUrl" class="login-brand-logo-img" alt="AUTO-TASKY" />
         <h1 class="login-brand-title">AUTO-TASKY</h1>
         <p class="login-brand-sub">Sistema de gestión de tareas industriales</p>
         <div class="login-brand-features">
@@ -54,6 +54,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import logoUrl from '@/assets/LOGO.png'
 
 const auth     = useAuthStore()
 const router   = useRouter()
@@ -97,12 +98,12 @@ async function doLogin() {
   padding: 60px 48px;
   display: flex; flex-direction: column; justify-content: center;
 }
-.login-brand-logo {
-  width: 56px; height: 56px;
-  background: var(--t700); color: #fff;
-  font-size: 1.4rem; font-weight: 900; letter-spacing: 1px;
-  display: flex; align-items: center; justify-content: center;
+.login-brand-logo-img {
+  height: 54px;
+  max-width: 180px;
+  object-fit: contain;
   margin-bottom: 24px;
+  filter: brightness(0) invert(1);
 }
 .login-brand-title {
   font-size: 1.8rem; font-weight: 800; color: #fff;
@@ -148,6 +149,22 @@ async function doLogin() {
   font-size: .76rem; color: var(--text-muted);
 }
 @media (max-width: 768px) {
-  .login-brand { display: none; }
+  .login-split { flex-direction: column; }
+  .login-brand {
+    width: 100%;
+    padding: 24px 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    justify-content: flex-start;
+  }
+  .login-brand-logo-img { height: 34px; margin-bottom: 0; flex-shrink: 0; }
+  .login-brand-title { font-size: 1.2rem; margin-bottom: 0; }
+  .login-brand-sub { display: none; }
+  .login-brand-features { display: none; }
+  .login-form-panel { padding: 24px 20px; align-items: flex-start; }
+  .login-form-box { max-width: 100%; }
+  .pin-keyboard { gap: 6px; }
+  .pin-key { min-height: 52px; font-size: 1.25rem; }
 }
 </style>

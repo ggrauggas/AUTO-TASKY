@@ -642,3 +642,323 @@ select { cursor: pointer; }
 .divider-light { border: none; border-top: 1px solid var(--border-light); margin: 14px 0; }
 .label-upper { font-size: .68rem; font-weight: 700; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .07em; }
 .label-upper-dark { font-size: .68rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; }
+
+/* =============================================
+   SIDEBAR LOGO — imagen + botón toggle
+   ============================================= */
+.sidebar-logo-img {
+  height: 30px;
+  max-width: 130px;
+  object-fit: contain;
+  flex: 1;
+  min-width: 0;
+  filter: brightness(0) invert(1);
+}
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.55);
+  cursor: pointer;
+  padding: 6px 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 3px;
+  transition: color .12s, background .12s;
+  margin-left: auto;
+}
+.sidebar-toggle-btn:hover { color: #fff; background: rgba(255,255,255,.1); }
+
+/* Texto del usuario */
+.sidebar-user-text { min-width: 0; }
+
+/* =============================================
+   SIDEBAR MINI (colapsado en desktop)
+   ============================================= */
+.sidebar-mini { width: 56px; }
+
+.sidebar-mini .sidebar-logo {
+  padding: 0;
+  justify-content: center;
+}
+.sidebar-mini .sidebar-logo-img { display: none; }
+.sidebar-mini .sidebar-toggle-btn { margin-left: 0; }
+
+.sidebar-mini nav a {
+  padding: 13px 0;
+  justify-content: center;
+  gap: 0;
+  border-left-width: 0;
+  position: relative;
+}
+.sidebar-mini nav a.router-link-active { border-left-width: 0; }
+.sidebar-mini .nav-label { display: none; }
+
+/* Tooltip al hover en mini */
+.sidebar-mini nav a::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0d1f1e;
+  color: rgba(255,255,255,.92);
+  padding: 5px 12px;
+  font-size: .81rem;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 400;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .12s;
+}
+.sidebar-mini nav a:hover::after { opacity: 1; }
+
+.sidebar-mini .sidebar-user {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar-mini .sidebar-user-info { margin-bottom: 0; }
+.sidebar-mini .sidebar-user-text { display: none; }
+.sidebar-mini .btn-logout { display: none; }
+
+/* Logo en mobile-header */
+.mobile-header-logo {
+  height: 26px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* =============================================
+   DASHBOARD GRID (antes inline style)
+   ============================================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+.dashboard-machines-kpi {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+/* =============================================
+   MOBILE HEADER (hamburger)
+   ============================================= */
+.mobile-header {
+  display: none;
+}
+
+/* =============================================
+   SIDEBAR OVERLAY
+   ============================================= */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 199;
+}
+.sidebar-overlay.open { display: block; }
+
+.sidebar-close-btn {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.65);
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 4px 6px;
+  transition: color .12s;
+  font-family: inherit;
+}
+.sidebar-close-btn:hover { color: #fff; }
+
+/* =============================================
+   RESPONSIVE — ≤960px (tablet + móvil)
+   ============================================= */
+@media (max-width: 960px) {
+  /* Sidebar: cajón deslizante */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    width: 260px;
+    box-shadow: 4px 0 20px rgba(0,0,0,.35);
+  }
+  .sidebar.sidebar-open { transform: translateX(0); }
+
+  /* Botón cerrar dentro del sidebar */
+  .sidebar-close-btn { display: flex; }
+
+  /* Header móvil visible */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 52px;
+    padding: 0 16px;
+    background: var(--nav-bg);
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--nav-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .mobile-header-title {
+    font-size: .95rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .8px;
+  }
+  .hamburger-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    transition: background .12s;
+  }
+  .hamburger-btn:hover { background: rgba(255,255,255,.1); }
+
+  /* Main ocupa todo el ancho */
+  .layout .main { width: 100%; }
+
+  /* En móvil, sidebar-mini no aplica — siempre drawer completo */
+  .sidebar.sidebar-mini {
+    width: 260px;
+    transform: translateX(-100%);
+  }
+  .sidebar.sidebar-mini.sidebar-open { transform: translateX(0); }
+  .sidebar.sidebar-mini .sidebar-logo { padding: 0 20px; justify-content: flex-start; }
+  .sidebar.sidebar-mini .sidebar-logo-img { display: block; }
+  .sidebar.sidebar-mini .sidebar-toggle-btn { margin-left: auto; }
+  .sidebar.sidebar-mini nav a { padding: 11px 20px; justify-content: flex-start; gap: 12px; border-left-width: 3px; }
+  .sidebar.sidebar-mini nav a::after { display: none; }
+  .sidebar.sidebar-mini .nav-label { display: inline; }
+  .sidebar.sidebar-mini .sidebar-user { padding: 14px 16px; align-items: flex-start; flex-direction: column; }
+  .sidebar.sidebar-mini .sidebar-user-info { margin-bottom: 10px; }
+  .sidebar.sidebar-mini .sidebar-user-text { display: block; }
+  .sidebar.sidebar-mini .btn-logout { display: block; width: 100%; }
+
+  /* Dashboard grid — apilar */
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   RESPONSIVE — ≤768px (móvil)
+   ============================================= */
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar {
+    padding: 10px 16px;
+    height: auto;
+    min-height: 52px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .topbar h1 { font-size: .9rem; }
+
+  /* Página */
+  .page { padding: 14px 16px; }
+
+  /* Task card body — una columna */
+  .task-card-body { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Task card actions */
+  .task-card-actions { gap: 6px; }
+  .task-card-actions .btn { flex: 1; min-width: 120px; justify-content: center; }
+
+  /* Filas de filtros — apilar */
+  .flex-between {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Selects — ancho completo */
+  .page select { width: 100% !important; }
+
+  /* Modal — bottom sheet en móvil */
+  .modal-backdrop { padding: 0; align-items: flex-end; }
+  .modal {
+    max-width: 100%;
+    width: 100%;
+    max-height: 92vh;
+    border-top: 4px solid var(--primary);
+  }
+  .modal-body { padding: 16px; }
+  .modal-actions { padding: 12px 16px; flex-wrap: wrap; }
+  .modal-actions .btn { flex: 1; min-width: 0; }
+
+  /* Tabs — scroll horizontal */
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+  }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 11px 14px;
+    font-size: .8rem;
+    white-space: nowrap;
+  }
+
+  /* Tablas */
+  th, td { padding: 9px 12px; }
+  .table-wrap { font-size: .82rem; }
+
+  /* Stat cards */
+  .stat-card-value { font-size: 1.9rem; }
+
+  /* Sim banner */
+  .sim-banner { flex-wrap: wrap; gap: 6px; font-size: .82rem; }
+
+  /* Activity feed */
+  .activity-list { max-height: 320px; }
+
+  /* Dashboard máquinas KPI — mantener 2 col en móvil */
+  .dashboard-machines-kpi { grid-template-columns: 1fr 1fr; }
+
+  /* Toast */
+  .toast-container {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    max-width: 100%;
+    width: auto;
+  }
+
+  /* Grids */
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   RESPONSIVE — ≤480px (móvil pequeño)
+   ============================================= */
+@media (max-width: 480px) {
+  .page { padding: 12px; }
+  .stat-card { padding: 14px 14px 12px; }
+  .stat-card-value { font-size: 1.6rem; }
+  .task-card { padding: 14px; }
+  .card { padding: 14px; }
+  .card-light { padding: 14px; }
+  .pin-key { font-size: 1.1rem; min-height: 48px; }
+  .modal-actions { flex-direction: column; }
+  .modal-actions .btn { width: 100%; }
+}
